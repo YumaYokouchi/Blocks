@@ -7,9 +7,13 @@ public class FieldManager : MonoBehaviour {
 	public int gridSize = 5;
 	public GameObject cellPrefab;
 	public GameObject human;
+	public Transform one;
+	public Transform two;
 
 	// Use this for initialization
 	void Start () {
+		
+
 		for (int x = 0; x < gridSize; x++) {  
 			for (int z = 0; z < gridSize; z++) {  
 				// セルを作成  
@@ -58,8 +62,10 @@ public class FieldManager : MonoBehaviour {
 	void MakeHuman(int id, int horizonID, int verticalID){
 		if (id == 1) {
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
-			GameObject hum = Instantiate (human,pos,Quaternion.identity);
+			GameObject hum = Instantiate (human,pos,Quaternion.identity,one);
 			hum.GetComponent<Human> ().type = HumanType.ONE;
+			hum.GetComponent<Human> ().horizonID = horizonID;
+			hum.GetComponent<Human> ().verticalID = verticalID;
 			hum.tag = "ONE";
 		
 			//プレイヤー１を生成する
@@ -69,6 +75,8 @@ public class FieldManager : MonoBehaviour {
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
 			GameObject hum = Instantiate (human,pos,Quaternion.identity);
 			hum.GetComponent<Human> ().type = HumanType.TWO;
+			hum.GetComponent<Human> ().horizonID = horizonID;
+			hum.GetComponent<Human> ().verticalID = verticalID;
 			hum.tag = "TWO";
 		}
 	}
