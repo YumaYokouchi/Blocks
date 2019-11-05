@@ -5,6 +5,7 @@ using UnityEngine;
 public class FieldManager : MonoBehaviour {
 	
 	public int gridSize = 5;
+	public GameObject cam;
 	public GameObject cellPrefab;
 	public GameObject human;
 	public Transform one;
@@ -63,6 +64,8 @@ public class FieldManager : MonoBehaviour {
 		if (id == 1) {
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
 			GameObject hum = Instantiate (human,pos,Quaternion.identity,one);
+			(hum).GetComponent<Renderer> ().material.color = Color.blue;
+			(cam).GetComponent<Camera> ().backgroundColor = Color.blue;
 			hum.GetComponent<Human> ().type = HumanType.ONE;
 			hum.GetComponent<Human> ().horizonID = horizonID;
 			hum.GetComponent<Human> ().verticalID = verticalID;
@@ -73,7 +76,9 @@ public class FieldManager : MonoBehaviour {
 		if (id == 2) {
 			//プレイヤー２を生成する
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
-			GameObject hum = Instantiate (human,pos,Quaternion.identity);
+			GameObject hum = Instantiate (human,pos,Quaternion.identity,two);
+			(hum).GetComponent<Renderer> ().material.color = Color.red;
+			(cam).GetComponent<Camera> ().backgroundColor = Color.red;
 			hum.GetComponent<Human> ().type = HumanType.TWO;
 			hum.GetComponent<Human> ().horizonID = horizonID;
 			hum.GetComponent<Human> ().verticalID = verticalID;
