@@ -25,7 +25,7 @@ public class FieldManager : MonoBehaviour {
 				// 位置を設定  
 				float xPos = (x - gridSize * 0.5f);  
 				float zPos = (z - gridSize * 0.5f);  
-				obj.transform.localPosition = new Vector3 (xPos, 0f, zPos);   
+				obj.transform.localPosition = new Vector3 (xPos, -0.5f, zPos);   
 
 				// Cellをセット  
 			}  
@@ -39,23 +39,24 @@ public class FieldManager : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);  
 			RaycastHit hit = new RaycastHit();  
 
-			if (Physics.Raycast(ray, out hit)){  
+			if (Physics.Raycast (ray, out hit)) {  
 				
-				Debug.Log("ID ="+
-					hit.collider.gameObject.GetComponent<Block>().horizonID +","+
-					hit.collider.gameObject.GetComponent<Block>().verticalID	);
+				Debug.Log ("ID =" +
+				hit.collider.gameObject.GetComponent<Block> ().horizonID + "," +
+				hit.collider.gameObject.GetComponent<Block> ().verticalID);
 
 				int h = hit.collider.gameObject.GetComponent<Block> ().horizonID;
 				int v = hit.collider.gameObject.GetComponent<Block> ().verticalID;
 
 				if (GameManager.instance.isOneTurn == true && GameManager.instance.state == GameState.CHOOSE) {
-					MakeHuman (1,h,v);
+					MakeHuman (1, h, v);
+					GameManager.instance.state = GameState.ACTION;
+				} else if (GameManager.instance.isOneTurn == false && GameManager.instance.state == GameState.CHOOSE) {
+					MakeHuman (2, h, v);
 					GameManager.instance.state = GameState.ACTION;
 				}
-				else if(GameManager.instance.isOneTurn == false && GameManager.instance.state == GameState.CHOOSE){
-					MakeHuman (2,h,v);
-					GameManager.instance.state = GameState.ACTION;
-				}
+			} else {
+				Debug.Log ("マスを選択してください");
 			}  
 		} 
 	}
@@ -63,7 +64,7 @@ public class FieldManager : MonoBehaviour {
 	void MakeHuman(int id, int horizonID, int verticalID){
 		if (id == 1) {
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
-			GameObject hum = Instantiate (human,pos,Quaternion.identity,one);
+			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, 90f, 0f),one);
 			(hum).GetComponent<Renderer> ().material.color = Color.blue;
 			(cam).GetComponent<Camera> ().backgroundColor = Color.blue;
 			hum.GetComponent<Human> ().type = HumanType.ONE;
@@ -76,7 +77,7 @@ public class FieldManager : MonoBehaviour {
 		if (id == 2) {
 			//プレイヤー２を生成する
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
-			GameObject hum = Instantiate (human,pos,Quaternion.identity,two);
+			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, -90f, 0f),two);
 			(hum).GetComponent<Renderer> ().material.color = Color.red;
 			(cam).GetComponent<Camera> ().backgroundColor = Color.red;
 			hum.GetComponent<Human> ().type = HumanType.TWO;
