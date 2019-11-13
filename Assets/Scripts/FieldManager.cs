@@ -64,6 +64,7 @@ public class FieldManager : MonoBehaviour {
 	void MakeHuman(int id, int horizonID, int verticalID){
 		if (id == 1) {
 			Vector3 pos = new Vector3 (horizonID-0.5f,0,verticalID-0.5f);
+		
 			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, 90f, 0f),one);
 			(hum).GetComponent<Renderer> ().material.color = Color.blue;
 			(cam).GetComponent<Camera> ().backgroundColor = Color.blue;

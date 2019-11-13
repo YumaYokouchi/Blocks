@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 223246936208139056}
   - component: {fileID: 114519896783893550}
   - component: {fileID: 114856680555377860}
+  - component: {fileID: 114820240186342520}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -294,7 +295,7 @@ GameObject:
   - component: {fileID: 4066228334434680}
   - component: {fileID: 95001723233472850}
   m_Layer: 0
-  m_Name: footman_Red
+  m_Name: soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,9 +596,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4231094336831154}
+  - component: {fileID: 95179550058535214}
   - component: {fileID: 137408988020212886}
   m_Layer: 0
-  m_Name: Footman_Mesh
+  m_Name: color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,7 +731,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1339711938405568}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.8, z: 0.5}
   m_Children:
@@ -737,7 +739,7 @@ Transform:
   - {fileID: 4897486618869148}
   m_Father: {fileID: 4044833982991638}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4102480190753860
 Transform:
   m_ObjectHideFlags: 1
@@ -840,9 +842,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870366385786394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.01, y: 0.009999998, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4066228334434680}
   m_RootOrder: 0
@@ -1319,6 +1321,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95179550058535214
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870366385786394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 46783dc54d7600447880ab6f35037fb4, type: 3}
+  m_Controller: {fileID: 9100000, guid: e6ef91a23981fc94c9303f771d197428, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114246593035184726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1393,6 +1412,20 @@ MonoBehaviour:
   horizonID: 0
   verticalID: 0
   isFirst: 0
+  _material:
+  - {fileID: 2100000, guid: 892c139d6ce687b478eab700aa1871f2, type: 2}
+  - {fileID: 2100000, guid: 5de734270eabfca49bc1f81b728ff410, type: 2}
+--- !u!114 &114820240186342520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309285753427520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29377f24914574c5d983bfd4d9be1aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114856680555377860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1546,7 +1579,7 @@ RectTransform:
   m_GameObject: {fileID: 1309285753427520}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.05, y: -0.05, z: 0.05}
   m_Children:
   - {fileID: 224254081885435868}
   m_Father: {fileID: 4044833982991638}

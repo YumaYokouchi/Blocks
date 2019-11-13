@@ -17,12 +17,28 @@ public class Human : MonoBehaviour {
 	int checkHorizonID;
 	int checkVerticalID;
 
+	public Material[] _material;           // 割り当てるマテリアル.
+
+
 	// Use this for initialization
 	void Start () {
+
+
+
 		if (type == HumanType.ONE) {
+
+			count.color = new Color(0, 0, 1, 1);
+
+			transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material=_material[0];
+
 			target = new Vector3 (horizonID + 0.5f, 0, verticalID - 0.5f);
 		}
 		if(type == HumanType.TWO){
+
+			count.color = new Color(1, 0, 0, 1);
+
+			transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Renderer>().material=_material[1];
+
 			target = new Vector3 (horizonID - 1.5f, 0, verticalID - 0.5f);
 		}
 		isFirst = true;
@@ -32,6 +48,7 @@ public class Human : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (type == HumanType.ONE) {
 			enemies = GameObject.FindGameObjectsWithTag ("TWO");
 			friends = GameObject.FindGameObjectsWithTag ("ONE");
