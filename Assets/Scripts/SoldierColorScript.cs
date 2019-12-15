@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoldierColorScript : MonoBehaviour {
 
-	public Material[] _material;           // 割り当てるマテリアル.
+	public Material[] sol_material;           // 割り当てるマテリアル.
 	private int i;
 
 	// Use this for initialization
@@ -23,7 +23,7 @@ public class SoldierColorScript : MonoBehaviour {
 				i = 0;
 			}
 
-			this.GetComponent<Renderer>().material=_material[i];
+			this.GetComponent<Renderer>().material=sol_material[i];
 		} 
 
 

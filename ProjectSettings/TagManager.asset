@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ONE
   - TWO
+  - DroppableField
   layers:
   - Default
   - TransparentFX

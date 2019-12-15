@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114875882423204226}
   m_Layer: 0
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: DroppableField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,3 +449,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizonID: 0
   verticalID: 0
+  iconImage: {fileID: 0}
