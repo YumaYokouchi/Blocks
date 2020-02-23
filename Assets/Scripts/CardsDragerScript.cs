@@ -6,6 +6,9 @@ public class CardsDragerScript : MonoBehaviour {
 
 	FieldManager fieldManager ;
 	Vector3 originPos ;
+	public Camera cam1, cam2;
+	public	Camera cam;
+	public int id;
 
 	void Start(){
 		fieldManager = FindObjectOfType<FieldManager> ();
@@ -13,9 +16,29 @@ public class CardsDragerScript : MonoBehaviour {
 	}
 
 	void OnMouseDrag(){
+
+		if (GameManager.instance.isOneTurn == true) {
+			if (id == 2) {
+				return;
+			}
+		}
+
+		if (GameManager.instance.isOneTurn == false) {
+			if (id == 1) {
+				return;
+			}
+		}
 		
+		if (GameManager.instance.isOneTurn == true) {
+			cam = cam1;
+		} else {
+			cam = cam2;
+		}
+
+
+
 		Vector3 objectPointInScreen
-		= Camera.main.WorldToScreenPoint(this.transform.position);
+		= cam.WorldToScreenPoint(this.transform.position);
 
 		Vector3 mousePointInScreen
 		= new Vector3(
@@ -23,7 +46,7 @@ public class CardsDragerScript : MonoBehaviour {
 			Input.mousePosition.y,
 			objectPointInScreen.z);
 
-		Vector3 mousePointInWorld = Camera.main.ScreenToWorldPoint(mousePointInScreen);
+		Vector3 mousePointInWorld = cam.ScreenToWorldPoint(mousePointInScreen);
 		mousePointInWorld.y = this.transform.position.y;
 		this.transform.position = mousePointInWorld;
 	}
@@ -35,7 +58,13 @@ public class CardsDragerScript : MonoBehaviour {
 			this.gameObject.transform.position = originPos; 
 
 			this.GetComponent <BoxCollider> ().enabled = false;
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);  
+		
+			if (GameManager.instance.isOneTurn == true) {
+				cam = cam1;
+			} else {
+				cam = cam2;
+			}
+			Ray ray = cam.ScreenPointToRay (Input.mousePosition);  
 			RaycastHit hit = new RaycastHit ();  
 			if (Physics.Raycast (ray, out hit)) {  
 				Debug.Log (hit.collider.gameObject.name);
@@ -49,12 +78,27 @@ public class CardsDragerScript : MonoBehaviour {
 					int h = hit.collider.gameObject.GetComponent<Block> ().horizonID;
 					int v = hit.collider.gameObject.GetComponent<Block> ().verticalID;
 
+	
+					for(int i = 0; i < fieldManager.oneList.Count; i++){
+						if(fieldManager.oneList[i].GetComponent<Human>().horizonID == h && fieldManager.oneList[i].GetComponent<Human>().verticalID == v){
+							return;
+						}
+					}
+					for(int j = 0; j < fieldManager.twoList.Count; j++){
+						if(fieldManager.twoList[j].GetComponent<Human>().horizonID == h && fieldManager.twoList[j].GetComponent<Human>().verticalID == v){
+							return;
+						}
+					}
+
 					if (GameManager.instance.isOneTurn == true && GameManager.instance.state == GameState.CHOOSE) {
 						fieldManager.MakeHuman (1, h, v);
 						GameManager.instance.state = GameState.ACTION;
 					} else if (GameManager.instance.isOneTurn == false && GameManager.instance.state == GameState.CHOOSE) {
+						
 						fieldManager.MakeHuman (2, h, v);
 						GameManager.instance.state = GameState.ACTION;
+
+					
 					}
 
 				}

@@ -11,8 +11,15 @@ public class TextLookat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Camera cam;
+		if (GameManager.instance.isOneTurn == true) {
+			cam = GameObject.Find ("1 Camera").GetComponent<Camera> ();
+		} else {
+			cam = GameObject.Find ("2 Camera").GetComponent<Camera> ();;
+		}
 
-		Vector3 p = Camera.main.transform.position;
+
+		Vector3 p = cam.transform.position;
 		p.z = transform.position.z;
 		p.x = transform.position.x;
 		transform.LookAt (p);

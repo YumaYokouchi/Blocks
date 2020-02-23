@@ -53,7 +53,8 @@ public class Human : MonoBehaviour {
 		}
 		isFirst = true;
 		CheckTarget ();
-		Invoke ("Action",2f);
+		GameManager.instance.endAction = this.MoveEnemies;
+		Invoke ("Action",1f);
 	}
 	
 	// Update is called once per frame
@@ -136,6 +137,7 @@ public class Human : MonoBehaviour {
 				if(checkHorizonID == enemies[i].GetComponent<Human>().horizonID && checkVerticalID == enemies[i].GetComponent<Human>().verticalID){
 					target = new Vector3 (checkHorizonID,0,checkVerticalID);
 				}
+			
 			}
 		}
 		if (this.type == HumanType.TWO) {
@@ -150,14 +152,23 @@ public class Human : MonoBehaviour {
 	}
 
 	public void Action(){
-		//Move ();
-		for(int i = 0; i < friends.Length; i++)
-		{
-			friends [i].GetComponent<Human> ().CheckTarget ();
-			friends [i].GetComponent<Human> ().Move ();
-		}
+		Move ();
+
 		GameManager.instance.state = GameState.CHOOSE;
-		GameManager.instance.isOneTurn = !GameManager.instance.isOneTurn;
+		//GameManager.instance.isOneTurn = !GameManager.instance.isOneTurn;
+	}
+
+	public void MoveEnemies(){
+
+		if (enemies.Length == 0)
+			return;
+		
+		for(int i = 0; i < enemies.Length; i++)
+		{
+
+			enemies [i].GetComponent<Human> ().CheckTarget ();
+			enemies [i].GetComponent<Human> ().Move ();
+		}
 	}
 
 	public void Move(){
@@ -173,9 +184,12 @@ public class Human : MonoBehaviour {
 					attackEnemy = enemies [i].gameObject;
 				}
 			}
-			Attack ();
+			Invoke ("Attack",1f);
 		} else {
 			if (this.type == HumanType.ONE) {
+
+
+
 				this.transform.position += new Vector3 (1, 0, 0);
 				this.horizonID++;
 				attackEnemy = null;
@@ -185,7 +199,10 @@ public class Human : MonoBehaviour {
 						attackEnemy = enemies [i].gameObject;
 					}
 				}
-			} else {
+			} 
+			else {
+				
+
 				this.transform.position -= new Vector3 (1, 0, 0);
 				this.horizonID--;
 				attackEnemy = null;
@@ -195,17 +212,31 @@ public class Human : MonoBehaviour {
 						attackEnemy = enemies [i].gameObject;
 					}
 				}
+
 			}
-			Attack ();
+			Invoke ("Attack",1f);
 		}
 
 
 	}
 
 	public void Attack(){
+		
+		Debug.Log (horizonID);
+		if(this.type == HumanType.ONE && horizonID >= 3){
+			GameManager.instance.twoCastleHP -= humanStrengthID;
+			return;		
+		}
+		if(this.type == HumanType.TWO && horizonID <= -3){
+			GameManager.instance.oneCastleHP -= humanStrengthID;
+			return;		
+		}
+
 		if (attackEnemy == null) {
 			return;
+
 		}
+
 		int atk = attackEnemy.GetComponent<Human> ().humanStrengthID;
 		attackEnemy.GetComponent<Human> ().humanStrengthID = atk - humanStrengthID;
 		humanStrengthID = humanStrengthID - atk;

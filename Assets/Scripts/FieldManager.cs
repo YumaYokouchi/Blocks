@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class FieldManager : MonoBehaviour {
 	
 	public int gridSize = 5;
-	public GameObject cam;
+	public GameObject cam1;
+	public GameObject cam2;
 	public GameObject cellPrefab;
 	public GameObject oneBoder;
 	public GameObject twoBoder;
@@ -15,14 +16,19 @@ public class FieldManager : MonoBehaviour {
 	public int twoTroopsNum;
 	public Transform one;
 	public Transform two;
-	public Text oneCost;
-	public Text twoCost;
+	public Text oneCostText;
+	public Text twoCostText;
+	public int oneCost;
+	public int twoCost;
+
+	//ヒューマンの位置を確認する
+	public List<GameObject> oneList;
+	public List<GameObject> twoList;
 
 	// Use this for initialization
 	void Start () {
-
-		oneCost.text = 3.ToString();
-		twoCost.text = 4.ToString();
+		oneCostText.text = oneCost.ToString ();
+		twoCostText.text = twoCost.ToString ();
 
 		MakeField ();
 
@@ -46,8 +52,8 @@ public class FieldManager : MonoBehaviour {
 				// Cellをセット  
 			}  
 		}
-		oneBoder.transform.localPosition = new Vector3 (-1.5f,0.3f,0);
-		twoBoder.transform.localPosition = new Vector3 (1.5f,0.3f,0);
+		oneBoder.transform.localPosition = new Vector3 (-1.5f,0.05f,0);
+		twoBoder.transform.localPosition = new Vector3 (1.5f,0.05f,0);
 	}
 
 
@@ -90,11 +96,16 @@ public class FieldManager : MonoBehaviour {
 		
 			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, 90f, 0f),one);
 			(hum).GetComponent<Renderer> ().material.color = Color.blue;
-			(cam).GetComponent<Camera> ().backgroundColor = Color.blue;
+			(cam1).GetComponent<Camera> ().backgroundColor = Color.blue;
+			(cam2).GetComponent<Camera> ().backgroundColor = Color.blue;
 			hum.GetComponent<Human> ().type = HumanType.ONE;
 			hum.GetComponent<Human> ().horizonID = horizonID;
 			hum.GetComponent<Human> ().verticalID = verticalID;
-			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,5);
+			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,10);
+
+			oneList.Add (hum);
+			twoList.Add (hum);
+
 			hum.tag = "ONE";
 		
 			//プレイヤー１を生成する
@@ -104,11 +115,12 @@ public class FieldManager : MonoBehaviour {
 			Vector3 pos = new Vector3 (horizonID,0,verticalID);
 			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, -90f, 0f),two);
 			(hum).GetComponent<Renderer> ().material.color = Color.red;
-			(cam).GetComponent<Camera> ().backgroundColor = Color.red;
+			(cam1).GetComponent<Camera> ().backgroundColor = Color.red;
+			(cam2).GetComponent<Camera> ().backgroundColor = Color.red;
 			hum.GetComponent<Human> ().type = HumanType.TWO;
 			hum.GetComponent<Human> ().horizonID = horizonID;
 			hum.GetComponent<Human> ().verticalID = verticalID;
-			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,5);
+			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,10);
 			hum.tag = "TWO";
 		}
 	}
