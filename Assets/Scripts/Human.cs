@@ -60,7 +60,7 @@ public class Human : MonoBehaviour {
 		}
 		isFirst = true;
 		CheckTarget ();
-		GameManager.instance.endAction = this.MoveEnemies();
+		GameManager.instance.endAction = this.MoveEnemies;
 
 		Invoke ("Action",1f);
 	}
