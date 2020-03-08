@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
 
 	public int oneNumber;
 	public int twoNumber;
+
+	public Text oneTurnEnd;
+	public Text twoTurnEnd;
+
 	public bool isOneTurn;
 	public GameState state;
 
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour {
 
 		isOneTurn = true;
 		state = GameState.CHOOSE;
+
 	}
 
 	public void Update (){
@@ -50,12 +55,19 @@ public class GameManager : MonoBehaviour {
 
 	public void OnOneEndClick(){
 		isOneTurn = false;
+
+		oneTurnEnd.gameObject.SetActive(true);
+		twoTurnEnd.gameObject.SetActive(false);
+
 		endAction ();
 		oneCost ++;
 
 	}
 	public void OnTwoEndClick(){
 		isOneTurn = true;
+
+		oneTurnEnd.gameObject.SetActive(false);
+		twoTurnEnd.gameObject.SetActive(true);
 		endAction ();
 		twoCost++;
 	}

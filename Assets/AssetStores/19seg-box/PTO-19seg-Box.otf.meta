@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f5034887d1a51409c9e8e78a419f73aa
+timeCreated: 1583628501
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PTO-19seg-Box
+  fontNames:
+  - PTO-19seg-Box
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,6 +9,7 @@ public class CardsDragerScript : MonoBehaviour {
 	public Camera cam1, cam2;
 	public	Camera cam;
 	public int id;
+	bool isDrag;
 
 	void Start(){
 		fieldManager = FindObjectOfType<FieldManager> ();
@@ -16,7 +17,7 @@ public class CardsDragerScript : MonoBehaviour {
 	}
 
 	void OnMouseDrag(){
-
+		isDrag = true;
 		if (GameManager.instance.isOneTurn == true) {
 			if (id == 2) {
 				return;
@@ -50,10 +51,19 @@ public class CardsDragerScript : MonoBehaviour {
 		mousePointInWorld.y = this.transform.position.y;
 		this.transform.position = mousePointInWorld;
 	}
+
+	void OnMouseUp(){
+		Invoke ("FalseDrag",0.1f);
+	}
+
+	void FalseDrag(){
+		isDrag = false;	
+	}
+
 	void Update (){
 		this.GetComponent <BoxCollider> ().enabled = true;
 
-		if (Input.GetMouseButtonUp (0)) { 
+		if (Input.GetMouseButtonUp (0)&& isDrag == true) { 
 			
 			this.gameObject.transform.position = originPos; 
 

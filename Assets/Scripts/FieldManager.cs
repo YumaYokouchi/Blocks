@@ -27,8 +27,8 @@ public class FieldManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		oneCostText.text = oneCost.ToString ();
-		twoCostText.text = twoCost.ToString ();
+		//oneCostText.text = oneCost.ToString ();
+		//twoCostText.text = twoCost.ToString ();
 
 		MakeField ();
 
@@ -51,16 +51,19 @@ public class FieldManager : MonoBehaviour {
 
 				// Cellをセット  
 			}  
+
 		}
 		oneBoder.transform.localPosition = new Vector3 (-1.5f,0.05f,0);
 		twoBoder.transform.localPosition = new Vector3 (1.5f,0.05f,0);
+
+
 	}
 
 
 		
 	// Update is called once per frame
 	void Update () {
-
+		Debug.Log (GameManager.instance.oneCost);
 
 
 //		if (Input.GetMouseButtonDown(0)) {  
@@ -90,7 +93,10 @@ public class FieldManager : MonoBehaviour {
 	}
 
 	public void MakeHuman(int id, int horizonID, int verticalID){
-		if (id == 1) {
+		Debug.Log ("player one go");
+		if (id == 1&& GameManager.instance.oneCost > 3) {
+
+
 
 			Vector3 pos = new Vector3 (horizonID,0,verticalID);
 		
@@ -103,14 +109,16 @@ public class FieldManager : MonoBehaviour {
 			hum.GetComponent<Human> ().verticalID = verticalID;
 			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,10);
 
+			GameManager.instance.oneCost -= hum.GetComponent<Human> ().humaCostID;
+
 			oneList.Add (hum);
-			twoList.Add (hum);
+			//twoList.Add (hum);
 
 			hum.tag = "ONE";
 		
 			//プレイヤー１を生成する
 		}
-		if (id == 2) {
+		if (id == 2&& GameManager.instance.twoCost > 3) {
 			//プレイヤー２を生成する
 			Vector3 pos = new Vector3 (horizonID,0,verticalID);
 			GameObject hum = Instantiate (human,pos,Quaternion.Euler(0f, -90f, 0f),two);
@@ -121,6 +129,10 @@ public class FieldManager : MonoBehaviour {
 			hum.GetComponent<Human> ().horizonID = horizonID;
 			hum.GetComponent<Human> ().verticalID = verticalID;
 			hum.GetComponent<Human> ().humanStrengthID = Random.Range (3,10);
+			twoList.Add (hum);
+
+			GameManager.instance.twoCost -= hum.GetComponent<Human> ().humaCostID;
+
 			hum.tag = "TWO";
 		}
 	}

@@ -31,11 +31,18 @@ public class Human : MonoBehaviour {
 
 	public Material[] _material;           // 割り当てるマテリアル.
 
+	void Awake(){
+		humaCostID = 3;
+	}
+
 
 	// Use this for initialization
 	void Start () {
+		fieldmanager = FindObjectOfType<FieldManager> ();
 
 		if (type == HumanType.ONE) {
+
+			Debug.Log ("spawn");
 
 			count.color = new Color(0, 0, 1, 1);
 
@@ -53,7 +60,8 @@ public class Human : MonoBehaviour {
 		}
 		isFirst = true;
 		CheckTarget ();
-		GameManager.instance.endAction = this.MoveEnemies;
+		GameManager.instance.endAction = this.MoveEnemies();
+
 		Invoke ("Action",1f);
 	}
 	
@@ -62,11 +70,15 @@ public class Human : MonoBehaviour {
 
 		//ライフがなくなったら自身を消滅する
 		if (humanStrengthID <1){
+			if (type == HumanType.ONE){
+				fieldmanager.oneList.Remove (this.gameObject);
+
+			}
+			if (type == HumanType.TWO){
+				fieldmanager.twoList.Remove (this.gameObject);
+			}
 			Destroy(this.gameObject,1f);
 
-			if (this.gameObject.tag == "ONE"){
-				
-			}
 		}
 
 		if (type == HumanType.ONE) {
@@ -224,11 +236,16 @@ public class Human : MonoBehaviour {
 		
 		Debug.Log (horizonID);
 		if(this.type == HumanType.ONE && horizonID >= 3){
+			
 			GameManager.instance.twoCastleHP -= humanStrengthID;
+			fieldmanager.oneList.Remove (this.gameObject);
+			Destroy (this.gameObject,1f);
 			return;		
 		}
 		if(this.type == HumanType.TWO && horizonID <= -3){
 			GameManager.instance.oneCastleHP -= humanStrengthID;
+			fieldmanager.twoList.Remove (this.gameObject);
+			Destroy (this.gameObject,1f);
 			return;		
 		}
 
